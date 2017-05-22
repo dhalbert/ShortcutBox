@@ -7,6 +7,7 @@
 # Read mappings.py and convert to internal format.
 
 from micropython import const
+import ure
 
 # A page entry numbers the page and gives it a label to show on the display.
 # page-3 "label"
@@ -21,7 +22,7 @@ class Page:
         self.switches = []
 
     def desc(self):
-        return 'P{} {}'.format(switch_num, label)
+        return 'P{} {}'.format(self.switch_num, self.label)
 
 
 class Switch:
@@ -36,7 +37,7 @@ class Switch:
         self.events = events
 
     def desc(self):
-        return '{}:{}'.format(switch_num, label)
+        return '{}:{}'.format(self.switch_num, self.label)
 
 
 class BadMapping(Exception):
@@ -44,14 +45,13 @@ class BadMapping(Exception):
 
 class Mappings:
     """Read in mappings and organize them."""
-    # ex: page-3 "label"
-    # PAGE_RE = ure.compile(r'^page-(\d+)\s+"([^"])"\s*$')
-    # ex: switch-2 "label" ctrl-x leftclick
-    # _SWITCH_RE = ure.compile(r'^switch-(\d+)\s+"([^"])"\s*(.*)$')
-    # ure not included by default, so doing ad hoc parsing below.
 
     def __init__(self, filename):
         """Read all mappings from given file."""
+        # ex: page-3 "label"
+        _PAGE_RE = ure.compile(r'^page-(\d+)\s+"([^"]*)"$')
+        # ex: switch-2 "label" ctrl-x leftclick
+        _SWITCH_RE = ure.compile(r'^switch-(\d+)\s+"([^"]*)"\s*(.*)$')
         self.pages = []
         switches_read = []
         f = open(filename, 'r')
@@ -61,51 +61,34 @@ class Mappings:
             if not line or line[0] == '#':
                 continue
 
-            # Extract label.
-            try:
-                first_quote = line.index('"')
-                last_quote = line.rindex('"')
-                if first_quote == last_quote:
-                    raise BadMapping(line)
-                label = line[first_quote + 1 : last_quote]
-                rest = line[:first_quote] + line[last_quote + 1:]
-            except (ValueError, IndexError):
-                raise BadMapping(line)
-                
-            rest_split = rest.split(None, 1)
-            if len(rest_split) == 0:
-                raise BadMapping(line)
-            cmd_parts = rest_split[0].split('-')
-            if len(cmd_parts) != 2:
-                raise BadMapping(line)
-            cmd_type = cmd_parts[0]
-            try:
-                cmd_num = int(cmd_parts[1])
-            except ValueError:
-                raise BadMapping(line)
-                
             # Is this a page definition?
-            if cmd_type == 'page':
+            match = _PAGE_RE.match(line)
+            if match:
                 if self.pages:
                     # Add collected switch definitions to previous page.
                     switches_read.sort(key=lambda switch: switch.switch_num)
                     self.pages[-1].switches =  switches_read
                 # Start a new page with its number and label, and an empty list of switches.
-                self.pages.append(Page(cmd_num, label))
+                # group(1) = page number, group(2) = label
+                self.pages.append(Page(int(match.group(1)), match.group(2)))
                 switches_read = []
                 continue
             
             # Is this a switch definition?
-            if cmd_type == 'switch':
+            match = _SWITCH_RE.match(line)
+            if match:
                 if not self.pages:
                     # Oops, too early. No page to put this switch on.
                     raise ValueError("switch line given before any page")
-                if len(rest_split) < 2:
-                    raise BadMapping(line)
-                switches_read.append(Switch(cmd_num, label, rest_split[1]))
+                # group(1) = switch number, group(2) = label, group(3) = event groups
+                switches_read.append(Switch(int(match.group(1)), match.group(2), match.group(3)))
+                continue
+
+            raise ValueError("bad line: " + line)
+            
 
         # At this point, entire file has been read.
-        if (not self.pages):
+        if not self.pages:
             raise ValueError(filename + "contains no mappings")
 
         # Add last set of switches to last page.
