@@ -3,26 +3,30 @@
 # MIT License: http://www.opensource.org/licenses/mit-license.php
 # Copyright 2017 by Daniel C. Halbert
 #
-# event_names.py:
+# events.py:
 # Map names to corresponding keycodes and mouse events.
 
 from adafruit_hid.keycode import Keycode
 from adafruit_hid.mouse import Mouse
 
-# These functions are used as mouse events, and called with a Mouse device.
-def leftclick(mouse):
+# Events are either integers, which are keycodes, or functions, which are called
+# with mouse and keyboard arguments.
+
+# Currently there are no functions that use the keyboard arguments
+
+def leftclick(keyboard, mouse):
     mouse.click(Mouse.LEFT_BUTTON)
 
-def middleclick(mouse):
+def middleclick(keyboard, mouse):
     mouse.click(Mouse.MIDDLE_BUTTON)
 
-def rightclick(mouse):
+def rightclick(keyboard, mouse):
     mouse.click(Mouse.RIGHT_BUTTON)
 
-def scrollin(mouse):
+def scrollin(keyboard, mouse):
     mouse.move(0, 0, -1)
 
-def scrollout(mouse):
+def scrollout(keyboard, mouse):
     mouse.move(0, 0, 1)
 
 
@@ -37,7 +41,7 @@ EVENT_NAMES = {
     # Characters that have special meanings in the mappings file.
     # Use these names instead.
     "minus" : Keycode.MINUS,
-    "space" : Keycode.SPACE,
+    "space" : Keycode.SPACEBAR,
 
     # Use shift-' for doublequote (")
 
@@ -64,6 +68,8 @@ EVENT_NAMES = {
     "scrollin" : scrollin,
     "scrollout" : scrollout,
 }
+            
+            
 
     
 
