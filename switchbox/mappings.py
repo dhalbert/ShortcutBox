@@ -22,7 +22,7 @@ class Page:
         self.switches = []
 
     def desc(self):
-        return 'P{} {}'.format(self.switch_num, self.label)
+        return 'P{} {}'.format(self.page_num, self.label)
 
 
 class Switch:
@@ -84,12 +84,12 @@ class Mappings:
                 switches_read.append(Switch(int(match.group(1)), match.group(2), match.group(3)))
                 continue
 
-            raise ValueError("bad line: " + line)
+            raise BadMapping("bad mapping line: " + line)
             
 
         # At this point, entire file has been read.
         if not self.pages:
-            raise ValueError(filename + "contains no mappings")
+            raise BadMapping(filename + "contains no mappings")
 
         # Add last set of switches to last page.
         switches_read.sort(key=lambda switch: switch.switch_num)
@@ -123,6 +123,6 @@ class Mappings:
                 try:
                     event_group.append(EVENT_NAME[event_string])
                 except KeyError:
-                    raise KeyError("bad event: " + event_name)
+                    raise BadMapping("bad event: " + event_name)
             events.append(event_group)
         return events

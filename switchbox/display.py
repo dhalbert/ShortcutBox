@@ -6,8 +6,8 @@
 # display.py:
 # Switchbox display: 20x4 character LCD
 
-from LCD.lcd import LCD
-from LCD.i2c_pcf8574_interface import I2CPCF8574Interface
+from lcd.lcd import LCD
+from lcd.i2c_pcf8574_interface import I2CPCF8574Interface
 
 class Display:
     
@@ -26,23 +26,23 @@ class Display:
 
     _MOUSE_BITMAP = bytearray((
         0b11111,
-	0b10101,
-	0b10101,
-	0b10101,
-	0b10001,
-	0b10001,
-	0b11111,
-	0b00000))
+        0b10101,
+        0b10101,
+        0b10101,
+        0b10001,
+        0b10001,
+        0b11111,
+        0b00000))
 
     _SHIFT_BITMAP = bytearray((
         0b00100,
-	0b01110,
-	0b11111,
-	0b01110,
-	0b01110,
-	0b01110,
-	0b01110,
-	0b00000))
+        0b01110,
+        0b11111,
+        0b01110,
+        0b01110,
+        0b01110,
+        0b01110,
+        0b00000))
 
     _CTRL_BITMAP = bytearray((
         0b11111,
@@ -66,43 +66,43 @@ class Display:
 
     _CMD_BITMAP = bytearray((
         0b00000,
-	0b11011,
-	0b11011,
-	0b00100,
-	0b11011,
-	0b11011,
-	0b00000,
-	0b00000))
+        0b11011,
+        0b11011,
+        0b00100,
+        0b11011,
+        0b11011,
+        0b00000,
+        0b00000))
 
     _BACKSLASH_BITMAP = bytearray((
-	0b00000,
-	0b10000,
-	0b01000,
-	0b00100,
-	0b00010,
-	0b00001,
-	0b00000,
-	0b00000))
+        0b00000,
+        0b10000,
+        0b01000,
+        0b00100,
+        0b00010,
+        0b00001,
+        0b00000,
+        0b00000))
 
     _UPARROW_BITMAP = bytearray((
-	0b00100,
-	0b01110,
-	0b10101,
-	0b00100,
-	0b00100,
-	0b00100,
-	0b00100,
-	0b00000))
+        0b00100,
+        0b01110,
+        0b10101,
+        0b00100,
+        0b00100,
+        0b00100,
+        0b00100,
+        0b00000))
 
     _DOWNARROW_BITMAP = bytearray((
-	0b00100,
-	0b00100,
-	0b00100,
-	0b00100,
-	0b10101,
-	0b01110,
-	0b00100,
-	0b00000))
+        0b00100,
+        0b00100,
+        0b00100,
+        0b00100,
+        0b10101,
+        0b01110,
+        0b00100,
+        0b00000))
 
     def __init__(self):
         self.lcd = LCD(I2CPCF8574Interface(0x27))
