@@ -2,6 +2,6 @@ page-1 "copy/paste"
 switch-1 "cut" ctrl-x
 switch-2 "copy" ctrl-c
 switch-3 "paste" ctrl-v
-page-2 "test"
-switch-1 "[mouse][mouse]" leftclick leftclick
-switch-2 "[ctrl][shift]k" ctrl-shift-k
+page-2 "shortcuts"
+switch-1 "dbl-clik" leftclick leftclick
+switch-2 "ctrl-shift-k" ctrl-shift-k

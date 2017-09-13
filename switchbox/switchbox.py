@@ -38,8 +38,8 @@ from board import *
 import time
 
 class Switchbox:
-    # Wait _BOUNCE_MSECS to make sure switch has finished bouncing
-    BOUNCE_SECS = 0.200 # 100 msecs
+    # Wait _BOUNCE_SECS to make sure switch has finished bouncing
+    BOUNCE_SECS = 0.100
 
     # Switch number that changes pages.
     PAGE_SWITCH = const(0)
@@ -55,9 +55,12 @@ class Switchbox:
             self.page_index = 0
             self.display_page()
         except BadMapping as e:
-            fatal_error(*e.args, "Fix and reset.")
+            fatal_error(*e.args + ["Fix and reset."])
 
-        self.switch_inputs = [digitalio.DigitalInOut(pin) for pin in (D5, D6, D10, D11, D12, D13, A0, A1, A2, A3, A4, A5)]
+        # Don't use D13: it's connected to the blinky LED and will get pulled down.
+        # Use A1 instead. A0 has the DAC, which might be useful for something later.
+        # There are seven 3.5mm jacks on the switchbox. D5 is the page-change switch.
+        self.switch_inputs = [digitalio.DigitalInOut(pin) for pin in (D5, D6, D10, D11, D12, A1)]
         for switch_input in self.switch_inputs:
             switch_input.switch_to_input(pull=digitalio.Pull.UP)
 
@@ -67,18 +70,21 @@ class Switchbox:
                 if not switch_input.value:
                     # switch pressed - pulled low. Wait for bounce time and see if it's still low.
                     time.sleep(self.BOUNCE_SECS)
-                    print("pressed", switch_num, time.monotonic())
                     if not switch_input.value:
                         if switch_num == self.PAGE_SWITCH:
                             self.next_page()
                         else:
                             self.press_switch(switch_num)
+                    # Wait for switch to be released.
+                    while not switch_input.value:
+                        pass
 
     def next_page(self):
         # Advance to next page. Wrap around if necessary.
         # Note that the page index does not correspond to the page number.
         self.page_index = (self.page_index + 1) % len(self.mappings.pages)
         self.display.clear()
+        self.display_page()
 
     def display_page(self):
         page = self.mappings.pages[self.page_index]
@@ -107,9 +113,9 @@ class Switchbox:
                     fatal_error("bad event:", event)
                     keyboard.release_all()
 
-    def fatal_error(strings):
+    def fatal_error(*args):
         self.display.clear()
-        self.display.print(*strings)
+        self.display.print(*args)
         # Hang until user presses the reset button.
         while True:
             pass

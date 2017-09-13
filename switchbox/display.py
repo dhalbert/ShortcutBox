@@ -12,67 +12,12 @@ from lcd.i2c_pcf8574_interface import I2CPCF8574Interface
 class Display:
     
     _SPECIAL_CHAR_NAMES = {
-        "[mouse]" : '\x00',
-        "[shift]" : '\x01',
-        "[ctrl]" : '\x02',
-        "[alt]" : '\x03',
-        "[cmd]" : '\x04',
         "\\" : '\x05',
         "[uparrow]" : '\x06',
         "[downarrow]" : '\x07',
         "[rightarrow]" : '\x7e',
         "[leftarrow]" : '\x7f',
         }
-
-    _MOUSE_BITMAP = bytearray((
-        0b11111,
-        0b10101,
-        0b10101,
-        0b10101,
-        0b10001,
-        0b10001,
-        0b11111,
-        0b00000))
-
-    _SHIFT_BITMAP = bytearray((
-        0b00100,
-        0b01110,
-        0b11111,
-        0b01110,
-        0b01110,
-        0b01110,
-        0b01110,
-        0b00000))
-
-    _CTRL_BITMAP = bytearray((
-        0b11111,
-        0b00000,
-        0b01110,
-        0b01000,
-        0b01110,
-        0b00000,
-        0b11111,
-        0b00000))
-
-    _ALT_BITMAP = bytearray((
-        0b11111,
-        0b00100,
-        0b01010,
-        0b01110,
-        0b01010,
-        0b01010,
-        0b11111,
-        0b00000))
-
-    _CMD_BITMAP = bytearray((
-        0b00000,
-        0b11011,
-        0b11011,
-        0b00100,
-        0b11011,
-        0b11011,
-        0b00000,
-        0b00000))
 
     _BACKSLASH_BITMAP = bytearray((
         0b00000,
@@ -106,11 +51,6 @@ class Display:
 
     def __init__(self):
         self.lcd = LCD(I2CPCF8574Interface(0x27))
-        self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[mouse]']), self._MOUSE_BITMAP)
-        self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[shift]']), self._SHIFT_BITMAP)
-        self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[ctrl]']), self._CTRL_BITMAP) 
-        self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[alt]']), self._ALT_BITMAP)
-        self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[cmd]']), self._CMD_BITMAP)
         self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['\\']), self._BACKSLASH_BITMAP)
         self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[uparrow]']), self._UPARROW_BITMAP)
         self.lcd.create_char(ord(self._SPECIAL_CHAR_NAMES['[downarrow]']), self._DOWNARROW_BITMAP)
@@ -122,7 +62,7 @@ class Display:
         return s
 
     def print(self, s):
-        self.lcd.print(s)
+        self.lcd.print(self.remap_special_chars(s))
 
     def clear(self):
         self.lcd.clear()
