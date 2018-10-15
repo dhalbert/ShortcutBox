@@ -1,0 +1,16 @@
+# shortcuts.txt example:
+
+1 CONTROL-X ; cut
+1 CONTROL-C ; copy
+1 CONTROL-V ; paste
+
+2 LEFT_BUTTON LEFT_BUTTON ; dbl-click
+2 RIGHT_CLICK ; right-click
+2 LEFT_BUTTON-HOLD_MOUSE ; left-hold
+
+3 CONTROL-SHIFT-K ; ctrl-shift-k
+
+4 T H E ; the
+4 A N D ; and
+4 PERIOD ; .
+4 SPACE ; space
