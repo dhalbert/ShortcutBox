@@ -54,7 +54,7 @@ DO_IT_SWITCH = 0
 # Don't use D13: it's connected to the blinky LED and will get pulled down.
 # Use A1 instead. A0 has the DAC, which might be useful for something later.
 # There are seven 3.5mm jacks on the switch box. D5 is the do-it switch.
-SWITCH_PINS = (board.D5, board.D6, board.D10, board.D11, board.D12, board.A1)
+SWITCH_PINS = (board.D5, board.D6, board.D9, board.D10, board.D11, board.D12, board.A1)
 
 class ShortcutBox:
     """Convert switch presses to keyboard and mouse shortcuts."""
@@ -97,22 +97,20 @@ class ShortcutBox:
                 if not switch_in.value:
                     # If switch is pressed, it's pulled low. Debounce by waiting for bounce time.
                     time.sleep(BOUNCE_SECS)
-                    print("switch", switch)
                     if switch == DO_IT_SWITCH and self.current_switch:
                         self.execute(self.current_shortcut)
+                        self.display.print(" *")
                     else:
                         if switch == self.current_switch:
                             # Advance to next shortcut if this not the first press on this switch.
-                            print("advance")
                             self.next_shortcut(switch)
                         else:
                             # Change to a new switch. Don't advance that switch's shortcuts yet.
-                            print("new switch")
                             self.current_switch = switch
+                        self.display_shortcut(self.current_shortcut, switch)
                     # Wait for switch to be released.
                     while not switch_in.value:
                         pass
-                    self.display_shortcut(self.current_shortcut)
 
 
     @property
@@ -124,7 +122,7 @@ class ShortcutBox:
         else:
             return None
 
-    def do_it(self, shortcut):
+    def execute(self, shortcut):
         """Execute the given shortcut, if it's not None."""
         if shortcut:
             shortcut.execute(self.keyboard, self.mouse, self.consumer_control)
@@ -135,9 +133,9 @@ class ShortcutBox:
             self.current_shortcut_index[switch] = (
                 (self.current_shortcut_index[switch] + 1) % len(self.shortcuts[switch]))
 
-    def display_shortcut(self, shortcut):
+    def display_shortcut(self, shortcut, switch):
         self.display.clear()
-        self.display.print(self.current_shortcut.label if shortcut
+        self.display.print(str(switch), ' ', shortcut.label if shortcut
                            else "No shortcuts\non this switch!")
 
     def fatal_error(self, *strings):

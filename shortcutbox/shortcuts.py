@@ -82,9 +82,9 @@ class Shortcut:
                 raise BadShortcut("Bad shortcut line: " + line)
 
             switch_num = int(match.group(1))
-            event_groups = tuple(EventGroup(event_group_str)
+            event_groups = tuple(EventGroup(event_group_str.strip())
                                  for event_group_str in match.group(2).split())
-            label = match.group(3)
+            label = match.group(3).strip()
 
             # Append the Shortcut to the list of shortcuts for this switch.
             shortcut_dict.setdefault(switch_num, []).append(Shortcut(event_groups, label))
@@ -96,7 +96,7 @@ class EventGroup:
     def __init__(self, event_group_str):
         event_group_strings = event_group_str.split('-')
         # Convert each event string to an event.
-        self.events = tuple(self.str_to_event(event_group_string)
+        self.events = tuple(self.str_to_event(event_group_string.strip())
                             for event_group_string in event_group_strings)
 
     @staticmethod
