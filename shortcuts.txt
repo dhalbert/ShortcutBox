@@ -1,14 +1,55 @@
-1 CONTROL-X ; cut
-1 CONTROL-C ; copy
-1 CONTROL-V ; paste
+#keys:
+# A B … Z ZERO … NINE RETURN ESCAPE BACKSPACE SPACE
+# MINUS EQUALS LEFT_BRACKET RIGHT_BRACKET BACKSLASH
+# POUND SEMICOLON QUOTE GRAVE_ACCENT COMMA PERIOD
+# FORWARD_SLASH CAPS_LOCK
+# F1 F2 … F12 INSERT HOME DELETE END
+# PAGE_DOWN PAGE_UP LEFT_ARROW RIGHT_ARROW
+# UP_ARROW DOWN_ARROW
+# CONTROL SHIFT ALT (option) CMD (command) GUI (command)
+# mouse
+# LEFT MIDDLE RIGHT SCROLL_IN SCROLL_OUT
+# HOLD means to hold down the keys in a group
 
-2 LEFT LEFT ; dbl-click
-2 RIGHT ; right-click
-2 LEFT HOLD_MOUSE ; left-hold
+1 cmd-s ; Save
+1 shift-cmd-s ; Save As ...
+1 cmd-i ; Import
+1 cmd-m ; Export Media
 
-3 CONTROL-SHIFT-K ; ctrl-shift-k
+1 cmd-z ; Undo
+1 shift-cmd-z ; Redo
 
-4 T H E SPACE ; "the "
-4 A N D SPACE; "and "
-4 PERIOD SPACE; ". "
-4 SPACE ; " "
+1 cmd-x ; Cut
+1 cmd-c ; Copy
+1 cmd-v ; Paste
+
+1 cmd-a ; Select All
+1 shift-cmd-forward_slash ; Duplicate
+1 t ; Trim Edit
+1 cmd-d ; Apply Video Transition
+1 shift-cmd-d ; Apply Audio Transition
+
+1 semicolon ; Lift
+1 quote ; Extract
+
+1 equals ; Zoom In
+1 minus ; Zoom Out
+
+2 s ; Snap
+2 cmd-i; Link
+2 cmd-g ; Group
+2 shift-cmd-g ; Ungroup
+2 cmd-r ; Speed / Duration
+2 shift-g ; Modify Audio Channels
+2 cmd-u ; Make Subclip
+
+2 i ; Mark In
+2 o ; Mark Out
+2 x ; Mark Clip
+2 forward_slash ; Mark Selection
+
+2 shift-i ; Goto In
+2 Shift-o ; Goto Out
+2 m ; Add Marker
+2 shift-m ; Goto Next Marker
+2 shift-cmd-m ; Goto Previous Marker
