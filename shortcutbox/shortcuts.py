@@ -32,6 +32,10 @@ _KEYBOARD_HOLD = 0x80002
 _MOUSE_SCROLL_IN = 0x80010
 _MOUSE_SCROLL_OUT = 0x8011
 
+_RENAMES = {
+    "CMD" : "GUI"
+    }
+
 _OTHER_EVENTS = {
     # Press a mouse button.
     "LEFT" : _MOUSE_EVENT | Mouse.LEFT_BUTTON,
@@ -103,6 +107,8 @@ class EventGroup:
     def str_to_event(event_str):
         """Parse an event into an integer code."""
         event_str = event_str.upper()
+        # Convenience renames of keycodes.
+        event_str = _RENAMES.get(event_str, event_str)
         # A Keycode name can be an event.
         keycode = getattr(Keycode, event_str, None)
         if keycode is not None:

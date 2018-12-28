@@ -54,7 +54,7 @@ DO_IT_SWITCH = 0
 # Don't use D13: it's connected to the blinky LED and will get pulled down.
 # Use A1 instead. A0 has the DAC, which might be useful for something later.
 # There are seven 3.5mm jacks on the switch box. D5 is the do-it switch.
-SWITCH_PINS = (board.D5, board.D6, board.D9, board.D10, board.D11, board.D12, board.A1)
+SWITCH_PINS = (board.D4, board.D6, board.D9, board.D10, board.D11, board.D12, board.A1)
 
 class ShortcutBox:
     """Convert switch presses to keyboard and mouse shortcuts."""
@@ -97,9 +97,13 @@ class ShortcutBox:
                 if not switch_in.value:
                     # If switch is pressed, it's pulled low. Debounce by waiting for bounce time.
                     time.sleep(BOUNCE_SECS)
-                    if switch == DO_IT_SWITCH and self.current_switch:
-                        self.execute(self.current_shortcut)
-                        self.display.print(" *")
+                    if switch == DO_IT_SWITCH:
+                        if self.current_switch:
+                            self.execute(self.current_shortcut)
+                            self.display.print(" *")
+                        else:
+                            self.display.clear()
+                            self.display.print("No shortcut\nchosen yet.")
                     else:
                         if switch == self.current_switch:
                             # Advance to next shortcut if this not the first press on this switch.
