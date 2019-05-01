@@ -112,9 +112,10 @@ class ShortcutBox:
                             # Change to a new switch. Don't advance that switch's shortcuts yet.
                             self.current_switch = switch
                         self.display_shortcut(self.current_shortcut, switch)
-                    # Wait for switch to be released.
+                    # Wait for switch to be released. Debounce on the way up, too.
                     while not switch_in.value:
                         pass
+                    time.sleep(BOUNCE_SECS)
 
 
     @property
