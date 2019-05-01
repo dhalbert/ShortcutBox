@@ -1,0 +1,159 @@
+#keys:
+# A B … Z ZERO … NINE RETURN ESCAPE BACKSPACE SPACE
+# MINUS EQUALS LEFT_BRACKET RIGHT_BRACKET BACKSLASH
+# POUND SEMICOLON QUOTE GRAVE_ACCENT COMMA PERIOD
+# FORWARD_SLASH CAPS_LOCK
+# F1 F2 … F12 INSERT HOME DELETE END
+# PAGE_DOWN PAGE_UP LEFT_ARROW RIGHT_ARROW
+# UP_ARROW DOWN_ARROW
+# CONTROL SHIFT ALT (option) CMD (command) GUI (command)
+# mouse
+# LEFT MIDDLE RIGHT SCROLL_IN SCROLL_OUT
+# HOLD means to hold down the keys in a group
+
+1 cmd-s ; Save
+1 shift-cmd-s ; Save As ...
+1 cmd-i ; Import
+1 cmd-m ; Export Media
+
+1 cmd-z ; Undo
+1 shift-cmd-z ; Redo
+
+1 cmd-x ; Cut
+1 cmd-c ; Copy
+1 cmd-v ; Paste
+
+1 cmd-a ; Select All
+1 shift-cmd-forward_slash ; Duplicate
+1 t ; Trim Edit
+1 cmd-d ; Apply Video Transition
+1 shift-cmd-d ; Apply Audio Transition
+
+1 semicolon ; Lift
+1 quote ; Extract
+
+1 equals ; Zoom In
+1 minus ; Zoom Out
+
+2 s ; Snap
+2 cmd-i; Link
+2 cmd-g ; Group
+2 shift-cmd-g ; Ungroup
+2 cmd-r ; Speed / Duration
+2 shift-g ; Modify Audio Channels
+2 cmd-u ; Make Subclip
+
+2 i ; Mark In
+2 o ; Mark Out
+2 x ; Mark Clip
+2 forward_slash ; Mark Selection
+
+2 shift-i ; Goto In
+2 Shift-o ; Goto Out
+2 m ; Add Marker
+2 shift-m ; Goto Next Marker
+2 shift-cmd-m ; Goto Previous Marker
+
+3 shift-cmd-right_bracket ; Bring to Front
+3 cmd-right_bracket ; Bring Forward
+3 shift-cmd-left_bracket ; Send to Back
+3 shift-right_bracket ; Send Backward
+
+3 alt-shift-zero ; Reset Current Workspace
+3 shift-nine ; Audio Clip Mixer
+3 shift-six ; Audio Track Mixer
+3 shift-five ; Effect Controls
+3 shift-seven ; Effects
+3 shift-three ; Timelines
+
+3 left_bracket ; Decrease Clip Volume
+3 shift-left_bracket ; Decrease Clip Volume Many
+3 right_bracket ; Increase Clip Volume
+3 shift-right_bracket ; Increase Clip Volume Many
+
+3 shift-equals ; Expand All Tracks
+
+3 shift-home ; Go To Selected Clip Start
+3 shift-end ; Go To Selected Clip End
+3 cmd-down_arrow ; Select Next Clip
+3 cmd-up_arrow ; Select Previous Clip
+
+3 alt-left_arrow ; Trim Backward
+3 alt-shift-left_arrow ; Trim Backward Many
+3 alt-right_arrow ; Trim Forward
+3 alt-shift-right_arrow ; Trim Forward Many
+
+3 cmd-b ; New Bin
+
+5 v ; Selection Tool
+5 a ; Track Select Tool
+5 b ; Ripple Edit Tool
+5 t ; Type Tool
+5 c ; Razor Tool
+5 h ; Hand Tool
+5 z ; Zoom Tool
+
+5 a ; Anchor Point (AE)
+5 p ; Position (AE)
+5 s ; Scale (AE)
+5 r ; Rotation (AE)
+5 t ; Opacity (AE)
+
+5 shift-a ; View More Anchor Point (AE)
+5 shift-p ; View More Position (AE)
+5 shift-s ; View More Scale (AE)
+5 shift-r ; View More Rotation (AE)
+5 shift-t ; View More Opacity (AE)
+
+5 alt-a ; Set Keyframe Anchor Point (AE)
+5 alt-p ; Set Keyframe Position (AE)
+5 alt-s ; Set Keyframe Scale (AE)
+5 alt-r ; Set Keyframe Rotation (AE)
+5 alt-t ; Set Keyframe Opacity (AE)
+
+5 u ; Reveal All Keyframed Properties (AE)
+5 space ; Hand Tool (AE)
+
+5 shift-equals ; Zoom In (AE)
+5 minus ; Zoom Out (AE)
+5 comma ; Comp Zoom In (AE)
+5 period ; Comp Zoom Out (AE)
+
+5 shift-forward_slash ; Fit Comp to Screen (AE)
+5 f9 ; Ease (AE)
+
+5 j ; Next Keyframe (AE)
+5 k ; Previous Keyframe (AE)
+
+5 i ; Jump to In Point (AE)
+5 o ; Jump to Out Point (AE)
+
+5 page_down ; Next Frame (AE)
+5 page_up ; Prev Frame (AE)
+
+5 u u ; See All Manipulated Props (AE)
+5 cmd-shift-c ; Precompose Layers (AE)
+
+5 left_bracket ; Start Layer Here (AE)
+5 right_bracket ; End Layer Here (AE)
+
+5 home ; Jump to Start of Work Area (AE)
+5 end ; Jump to End of Work Area (AE)
+
+5 cmd-alt-f ; Scale Layers to Fit (AE)
+5 cmd-r ; Toggle Ruler (AE)
+
+5 cmd-j ; Full Resolution (AE)
+5 cmd-shift-j ; Half Resolution (AE)
+5 cmd-alt-shift-j ; Quarter Resolution (AE)
+
+5 cmd-shift-d ; Split Layers (AE)
+5 cmd-down_arrow ; Go Down Layer (AE)
+5 cmd-up_arrow ; Go Up Layer (AE)
+
+5 shift-f3 ; Graph Editor (AE)
+5 cmd-f ; Search (AE)
+5 shift-one ; Maximize (AE)
+5 cmd-shift-h ; Toggle Layer Controls (AE)
+5 alt-cmd-home ; Center Anchor Point (AE)
+5 cmd-quote ; Toggle Grid (AE)
